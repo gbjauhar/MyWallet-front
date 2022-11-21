@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AuthContext from "./auth";
@@ -9,12 +9,12 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
 
-  /* 
+
   useEffect(() => {
       if (user) {
-          user.membership === null ? navigate("/subscriptions") : navigate("/home")
+         navigate("/home")
       }
-  }, [user]) */
+  }, [user])
   function post(e) {
     e.preventDefault();
     axios

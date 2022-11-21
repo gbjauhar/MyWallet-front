@@ -10,8 +10,8 @@ import ExpensePage from "./ExpensePage"
 import { useState } from "react";
 
 export default function App() {
-/*   const [user, setUser] = useLocalStorage("user", null);
- */  const [user, setUser] = useState({})
+  const [user, setUser] = useLocalStorage("user", null);
+
 
   return (
     <BrowserRouter>
