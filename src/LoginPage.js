@@ -24,7 +24,9 @@ export default function LoginPage() {
         
         navigate("/home");
       })
-      .catch((res) => alert(res.data.message));
+      .catch((res) => {
+        alert(res.data)
+      });
   }
   console.log(user);
   function handleChange(e) {
@@ -53,7 +55,7 @@ export default function LoginPage() {
         />
         <button type="submit">Entrar</button>
       </Form>
-      <Link to="/signup">
+      <Link to="/signup" >
         <p>Primeira vez? Cadastre-se!</p>
       </Link>
     </ContainerPage>
@@ -61,11 +63,9 @@ export default function LoginPage() {
 }
 
 const ContainerPage = styled.main`
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   h1 {
     font-family: "Saira Stencil One";
     font-style: normal;
@@ -83,17 +83,21 @@ const ContainerPage = styled.main`
     font-size: 15px;
     line-height: 18px;
     color: #ffffff;
+    margin-top:36px;
   }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
   input {
     background: #ffffff;
     border-radius: 5px;
     width: 326px;
     height: 58px;
+    border: 1px solid #d5d5d5;
+    margin-top: 10px;
   }
   input::placeholder {
     font-family: "Raleway";
@@ -114,5 +118,7 @@ const Form = styled.form`
     font-size: 20px;
     line-height: 23px;
     color: #ffffff;
+    margin-top:5%;
+    margin-bottom:5%;
   }
 `;

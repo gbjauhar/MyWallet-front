@@ -25,7 +25,8 @@ console.log(user)
     }
     return(
         <ContainerPage>
-            <form onSubmit={post}>
+            <h1>Nova saída</h1>
+            <Form onSubmit={post}>
             <input
             name="cost"
             placeholder="Valor"
@@ -38,10 +39,53 @@ console.log(user)
             type="text"
             value={form.description}
             onChange={handleChange}/>
-            <button type="submit">Enviar</button>
-            </form>
+            <button type="submit">Salvar saída</button>
+            </Form>
         </ContainerPage>
     )
 }
 
-const ContainerPage = styled.div``
+const ContainerPage = styled.div`
+display:flex;
+flex-direction: column;
+align-items: center;
+h1{
+    width: 80%;
+    justify-content: flex-start;
+    color: #ffffff;
+    margin-bottom: 40px;
+    margin-top: 25px;
+    font-family: "Raleway";
+    font-weight: 700;
+    font-size: 26px;
+}
+`
+
+const Form = styled.form`
+display: flex;
+flex-direction: column;
+align-items: center;
+input{
+    width: 326px;
+    height: 58px;
+    border: 1px solid #d5d5d5;
+    color: #d4d4d4;
+    box-sizing: border-box;
+    margin-bottom: 13px;
+    border-radius: 5px;
+}
+button{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 326px;
+    height: 46px;
+    background-color: #a328d6;
+    border-radius: 5px;
+    margin-bottom: 5%;
+    font-family: "Raleway";
+    font-weight: 700;
+    font-size: 26px;
+    color:white;
+}
+`

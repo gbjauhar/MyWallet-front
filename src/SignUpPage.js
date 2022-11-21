@@ -9,24 +9,23 @@ export default function SignUpPage() {
 
   function signup(e) {
     e.preventDefault();
+
     if (form.password !== form._password) {
       alert("Passwords should match!");
-
     } else {
-      const request = { ...form };
-      delete request._password;
+      const request = {...form}
+      delete request._password
       console.log(form);
       axios
-      .post("http://localhost:5000/signup", request)
-      .then((res) => {
-        alert(res.data);
-        navigate("/");
-      })
-      .catch((res) => {
-        alert(res.data);
-      });
+        .post("http://localhost:5000/signup", request)
+        .then((res) => {
+          console.log(res);
+          navigate("/");
+        })
+        .catch((res) => {
+          alert(res);
+        });
     }
-   
   }
 
   function handleChange(e) {
@@ -56,7 +55,7 @@ export default function SignUpPage() {
         <input
           name="password"
           placeholder="Senha"
-          type="password"
+          type="text"
           value={form.password}
           onChange={handleChange}
           required
@@ -65,7 +64,8 @@ export default function SignUpPage() {
           placeholder="Confirme a senha"
           name="_password"
           value={form._password}
-          type="password"
+          onChange={handleChange}
+          type="text"
           required
         />
         <button type="submit">Entrar</button>
@@ -78,8 +78,10 @@ export default function SignUpPage() {
 }
 
 const ContainerPage = styled.div`
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   h1 {
     font-family: "Saira Stencil One";
     font-style: normal;
@@ -87,6 +89,7 @@ const ContainerPage = styled.div`
     font-size: 32px;
     line-height: 50px;
     color: #ffffff;
+    margin-top:95px;
   }
   p {
     font-family: "Raleway";
@@ -95,17 +98,22 @@ const ContainerPage = styled.div`
     font-size: 15px;
     line-height: 18px;
     color: #ffffff;
+    margin-top:36px;
   }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-top: 28px;
   input {
     background: #ffffff;
     border-radius: 5px;
     width: 326px;
     height: 58px;
+    border: 1px solid #d5d5d5;
+    margin-top:10px;
   }
   input::placeholder {
     font-family: "Raleway";
@@ -126,5 +134,7 @@ const Form = styled.form`
     font-size: 20px;
     line-height: 23px;
     color: #ffffff;
+    margin-top: 5%;
+    margin-bottom:5%;
   }
 `;
