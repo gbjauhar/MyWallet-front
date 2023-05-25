@@ -6,12 +6,12 @@ import AuthContext from "./auth"
 
 export default function ExpensePage(){
     const [form, setForm] = useState({cost:"", description:""})
-    const {user, setUser} = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
     const navigate = useNavigate()
     function post(e){
         e.preventDefault()
         const config = {headers: {"Authorization": `Bearer ${user.token}`}}
-        axios.post("http://localhost:5000/expense", form, config)
+        axios.post(`${process.env.REACT_APP_API_BASE_URL}/expense`, form, config)
         .then((res) =>{
         navigate("/home")
     })
@@ -32,13 +32,15 @@ console.log(user)
             placeholder="Valor"
             type="text"
             value={form.cost}
-            onChange={handleChange}/>
+            onChange={handleChange}
+            required />
             <input
             name="description"
             placeholder="Descrição"
             type="text"
             value={form.description}
-            onChange={handleChange}/>
+            onChange={handleChange}
+            required />
             <button type="submit">Salvar saída</button>
             </Form>
         </ContainerPage>
@@ -74,6 +76,15 @@ input{
     margin-bottom: 13px;
     border-radius: 5px;
 }
+input::placeholder {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+    text-align: center;
+  }
 button{
     display:flex;
     justify-content: center;
@@ -87,5 +98,7 @@ button{
     font-weight: 700;
     font-size: 26px;
     color:white;
+    border: none;
+    cursor: pointer;
 }
 `

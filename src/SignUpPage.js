@@ -17,13 +17,13 @@ export default function SignUpPage() {
       delete request._password
       console.log(form);
       axios
-        .post("http://localhost:5000/signup", request)
+        .post(`${process.env.REACT_APP_API_BASE_URL}/signup`, request)
         .then((res) => {
-          console.log(res);
+          alert(res.data)
           navigate("/");
         })
         .catch((res) => {
-          alert(res);
+          alert(res.response.data);
         });
     }
   }
@@ -55,7 +55,7 @@ export default function SignUpPage() {
         <input
           name="password"
           placeholder="Senha"
-          type="text"
+          type="password"
           value={form.password}
           onChange={handleChange}
           required
@@ -65,12 +65,12 @@ export default function SignUpPage() {
           name="_password"
           value={form._password}
           onChange={handleChange}
-          type="text"
+          type="password"
           required
         />
         <button type="submit">Entrar</button>
       </Form>
-      <Link to="/">
+      <Link to="/" style={{textDecoration: 'none'}}>
         <p>Já tem uma conta? Entre agora!</p>
       </Link>
     </ContainerPage>
@@ -99,6 +99,7 @@ const ContainerPage = styled.div`
     line-height: 18px;
     color: #ffffff;
     margin-top:36px;
+    cursor: pointer;
   }
 `;
 
@@ -122,6 +123,7 @@ const Form = styled.form`
     font-size: 20px;
     line-height: 23px;
     color: #000000;
+    text-align: center;
   }
   button {
     width: 326px;
@@ -136,5 +138,7 @@ const Form = styled.form`
     color: #ffffff;
     margin-top: 5%;
     margin-bottom:5%;
+    cursor: pointer;
+    border: none;
   }
 `;

@@ -7,7 +7,6 @@ import useLocalStorage from "./useLocalStorage";
 import HomePage from "./HomePage"
 import IncomePage from "./IncomePage"
 import ExpensePage from "./ExpensePage"
-import { useState } from "react";
 
 export default function App() {
   const [user, setUser] = useLocalStorage("user", null);

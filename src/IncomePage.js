@@ -4,42 +4,43 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import AuthContext from "./auth"
 
-export default function IncomePage(){
-    const [form, setForm] = useState({cost:"", description:""})
-    const {user } = useContext(AuthContext)
+export default function IncomePage() {
+    const [form, setForm] = useState({ cost: "", description: "" })
+    const { user } = useContext(AuthContext)
     const navigate = useNavigate()
-    function post(e){
+    function post(e) {
         e.preventDefault()
-        const config = {headers: {"Authorization": `Bearer ${user.token}`}}
-        axios.post("http://localhost:5000/income", form, config)
-        .then(() =>{
-        navigate("/home")
-    })
-    .catch((res) =>{
-        alert(res.data)
-    })
+        const config = { headers: { "Authorization": `Bearer ${user.token}` } }
+        axios.post(`${process.env.REACT_APP_API_BASE_URL}/income`, form, config)
+            .then(() => {
+                navigate("/home")
+            })
+            .catch((res) => {
+                alert(res.data)
+            })
     }
-console.log(user)
-    function handleChange(e){
-        setForm({...form, [e.target.name]:e.target.value})
+    function handleChange(e) {
+        setForm({ ...form, [e.target.name]: e.target.value })
     }
-    return(
+    return (
         <ContainerPage>
             <h1>Nova entrada</h1>
             <Form onSubmit={post}>
-            <input
-            name="cost"
-            placeholder="Valor"
-            type="number"
-            value={form.cost}
-            onChange={handleChange}/>
-            <input
-            name="description"
-            placeholder="Descrição"
-            type="text"
-            value={form.description}
-            onChange={handleChange}/>
-            <button type="submit">Salvar entrada</button>
+                <input
+                    name="cost"
+                    placeholder="Valor"
+                    type="number"
+                    value={form.cost}
+                    onChange={handleChange}
+                    required />
+                <input
+                    name="description"
+                    placeholder="Descrição"
+                    type="text"
+                    value={form.description}
+                    onChange={handleChange} 
+                    required/>
+                <button type="submit">Salvar entrada</button>
             </Form>
         </ContainerPage>
     )
@@ -74,6 +75,15 @@ input{
     margin-bottom: 13px;
     border-radius: 5px;
 }
+input::placeholder {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+    text-align: center;
+  }
 button{
     display:flex;
     justify-content: center;
@@ -87,5 +97,7 @@ button{
     font-weight: 700;
     font-size: 26px;
     color:white;
+    border: none;
+    cursor: pointer;
 }
 `

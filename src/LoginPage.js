@@ -11,24 +11,25 @@ export default function LoginPage() {
 
 
   useEffect(() => {
-      if (user) {
-         navigate("/home")
-      }
+    if (user) {
+      navigate("/home")
+    }
+    // eslint-disable-next-line
   }, [user])
+
   function post(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/", form)
+      .post(process.env.REACT_APP_API_BASE_URL, form)
       .then((res) => {
         setUser(res.data);
-        
         navigate("/home");
       })
       .catch((res) => {
         alert(res.data)
       });
   }
-  console.log(user);
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -55,7 +56,7 @@ export default function LoginPage() {
         />
         <button type="submit">Entrar</button>
       </Form>
-      <Link to="/signup" >
+      <Link to="/signup" style={{ textDecoration: 'none' }}>
         <p>Primeira vez? Cadastre-se!</p>
       </Link>
     </ContainerPage>
@@ -84,6 +85,7 @@ const ContainerPage = styled.main`
     line-height: 18px;
     color: #ffffff;
     margin-top:36px;
+    cursor: pointer;
   }
 `;
 
@@ -106,6 +108,7 @@ const Form = styled.form`
     font-size: 20px;
     line-height: 23px;
     color: #000000;
+    text-align: center;
   }
   button {
     width: 326px;
@@ -120,5 +123,7 @@ const Form = styled.form`
     color: #ffffff;
     margin-top:5%;
     margin-bottom:5%;
+    border: none;
+    cursor: pointer;
   }
 `;

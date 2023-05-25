@@ -1,88 +1,87 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AuthContext from "./auth";
 import axios from "axios";
 import Loading from "./Loading";
 import Entry from "./Entry";
-import logOut from "./img/log-out-outline.svg"
+import logout from "./img/log-out-outline.svg"
 import addImg from "./img/add-circle-outline.svg"
 import deleteImg from "./img/remove-circle-outline.svg"
+import updateTotal from "./services/price.service";
 
 export default function HomePage() {
   const { user, setUser } = useContext(AuthContext);
   const [entries, setEntries] = useState([]);
-  const [total, setTotal] = useState(0);
   const [pageLoading, setPageLoading] = useState(true);
-  const [outra, setOutra] = useState([])
-let filtrado = []
-  function updateTotal(e) {
-    let value = 0;
-    for (let i = 0; i < e.length; i++) {
-      if (e[i].type === "income") {
-        e[i].cost = +e[i].cost;
-        value += e[i].cost;
-      } else if (e[i].type === "expense") {
-        e[i].cost = +e[i].cost;
-        value = value - e[i].cost;
-      }
-    }
-    setTotal(value);
-  }
+  const navigate = useNavigate()
+
   useEffect(() => {
     if (!user) {
-      return;
+      alert("Você precisa fazer login para visualizar a página!")
+      navigate("/")
+      return
     }
     const config = { headers: { "Authorization": `Bearer ${user.token}` } };
     axios
-      .get("http://localhost:5000/home", config)
+      .get(`${process.env.REACT_APP_API_BASE_URL}/home`, config)
       .then((res) => {
         setEntries(res.data);
-        updateTotal(res.data);
         setPageLoading(false);
-        setUser({ ...user, entries: filtrado });
-        
+        setUser({ ...user, entries });
+
       })
-      .catch((res) => alert(res.data));
+      .catch((res) => console.log(res));
   }, [entries]);
- /*  if (pageLoading) {
+
+
+  function logOut() {
+    setUser(null)
+    navigate("/")
+  }
+  if (pageLoading) {
     return <Loading />;
-  } else { */
+  } else {
     return (
       <ContainerPage>
         <Header>
-          <h1>Olá, {user.name} 
+          <h1>Olá, {user.name}
           </h1>
-          <img src={logOut} alt="logOut"/>
+          <img src={logout} alt="logOut" onClick={logOut} />
         </Header>
         <Get>
-{entries.map((e) => 
-              <Entry 
-              type={e.type}
-              description={e.description}
-              cost={e.cost}
-              time={e.time}
-              id={e._id}/>
-)}
+          {user.entries.length === 0 ?
+            <p>Não há registros de <br /> entrada ou de saída</p>
+            :
+            user.entries.map((e) =>
+              <Entry
+                type={e.type}
+                description={e.description}
+                cost={e.cost}
+                time={e.time}
+                id={e._id} />
+            )
+          }
         </Get>
-        <Total total={total}><h1>SALDO</h1><h2>{total.toFixed(2).toString().replaceAll(".", ",")}</h2></Total>
+        <Total total={updateTotal(user.entries)}><h1>SALDO</h1><h2>{updateTotal(user.entries).toFixed(2).toString().replaceAll(".", ",")}</h2></Total>
         <ButtonContainer>
-        <Link to="/income">
-          <Button>
-            <img src={addImg}/>
-            <h1>Nova <br/>entrada</h1>
-          </Button>
-        </Link>
-        <Link to="/expense">
-          <Button>
-            <img src={deleteImg}/>
-            <h1>Nova <br/>saída</h1>
+          <Link to="/income" style={{ textDecoration: 'none' }}>
+            <Button>
+              <img src={addImg} />
+              <h1>Nova <br />entrada</h1>
             </Button>
-        </Link>
+          </Link>
+          <Link to="/expense" style={{ textDecoration: 'none' }}>
+            <Button>
+              <img src={deleteImg} />
+              <h1>Nova <br />saída</h1>
+            </Button>
+          </Link>
         </ButtonContainer>
       </ContainerPage>
     );
   }
+}
 
 
 const ContainerPage = styled.div`
@@ -123,6 +122,14 @@ const Get = styled.div`
   position: relative;
   padding-bottom: 13px;
   overflow: scroll;
+  p{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    color: #868686;
+      }
 `;
 
 const Total = styled.div`
@@ -173,6 +180,8 @@ box-sizing: border-box;
 padding-left: 10px;
 padding-bottom: 9px;
 position: relative;
+border: none;
+    cursor: pointer;
 img{
   position: absolute;
   top: 5%;
