@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import AuthContext from "../auth";
+import AuthContext from "../contexts/auth";
 import axios from "axios";
-import Loading from "../Loading";
+import Loading from "../components/Loading";
 import Entry from "../components/Entry";
-import logout from "./img/log-out-outline.svg"
-import addImg from "./img/add-circle-outline.svg"
-import deleteImg from "./img/remove-circle-outline.svg"
+import logout from "../assets/img/log-out-outline.svg"
+import addImg from "../assets/img/add-circle-outline.svg"
+import deleteImg from "../assets/img/remove-circle-outline.svg"
 import updateTotal from "../services/price.service";
 
 export default function HomePage() {
@@ -59,7 +59,8 @@ export default function HomePage() {
                 description={e.description}
                 cost={e.cost}
                 time={e.time}
-                id={e._id} />
+                id={e._id} 
+                key={e._id} />
             )
           }
         </Get>

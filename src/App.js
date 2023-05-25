@@ -1,13 +1,13 @@
-import GlobalStyle from "./GlobalStyle";
+import GlobalStyle from "./assets/styles/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AuthContext from "./auth";
-import LoginPage from "./LoginPage";
-import SignUpPage from "./SignUpPage";
-import useLocalStorage from "./useLocalStorage";
-import HomePage from "./HomePage"
-import IncomePage from "./IncomePage"
-import ExpensePage from "./ExpensePage"
-import EditPage from "./EditPage";
+import AuthContext from "./contexts/auth";
+import useLocalStorage from "./hooks/useLocalStorage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import HomePage from "./pages/HomePage"
+import IncomePage from "./pages/IncomePage"
+import ExpensePage from "./pages/ExpensePage"
+import EditPage from "./pages/EditPage";
 
 export default function App() {
   const [user, setUser] = useLocalStorage("user", null);
