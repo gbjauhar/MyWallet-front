@@ -2,7 +2,7 @@ import axios from "axios"
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import AuthContext from "./auth"
+import AuthContext from "../contexts/auth"
 
 export default function IncomePage() {
     const [form, setForm] = useState({ cost: "", description: "" })

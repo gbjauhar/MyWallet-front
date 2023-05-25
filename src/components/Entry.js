@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import styled from "styled-components";
-import AuthContext from "./auth";
+import AuthContext from "../auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Entry({ cost, type, time, description, id }) {

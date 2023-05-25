@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import AuthContext from "./auth";
+import AuthContext from "../auth";
 import axios from "axios";
-import Loading from "./Loading";
-import Entry from "./Entry";
+import Loading from "../Loading";
+import Entry from "../components/Entry";
 import logout from "./img/log-out-outline.svg"
 import addImg from "./img/add-circle-outline.svg"
 import deleteImg from "./img/remove-circle-outline.svg"
-import updateTotal from "./services/price.service";
+import updateTotal from "../services/price.service";
 
 export default function HomePage() {
   const { user, setUser } = useContext(AuthContext);
