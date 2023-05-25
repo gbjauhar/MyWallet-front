@@ -7,6 +7,7 @@ import useLocalStorage from "./useLocalStorage";
 import HomePage from "./HomePage"
 import IncomePage from "./IncomePage"
 import ExpensePage from "./ExpensePage"
+import EditPage from "./EditPage";
 
 export default function App() {
   const [user, setUser] = useLocalStorage("user", null);
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/income" element={<IncomePage />}/>
           <Route path="/expense" element={<ExpensePage />}/>
+          <Route path="/edit" element={<EditPage />} />
         </Routes>
       </AuthContext.Provider>
     </BrowserRouter>

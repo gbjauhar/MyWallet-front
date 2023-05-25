@@ -2,9 +2,11 @@ import axios from "axios";
 import { useContext } from "react";
 import styled from "styled-components";
 import AuthContext from "./auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Entry({ cost, type, time, description, id }) {
   const { user } = useContext(AuthContext)
+  const navigate = useNavigate()
   function post() {
     if (window.confirm("Tem certeza que quer apagar o registro?")) {
       const config = { headers: { "Authorization": `Bearer ${user.token}` } }
@@ -21,7 +23,9 @@ export default function Entry({ cost, type, time, description, id }) {
     <>
     <Valores color={type}>
       <h1>{time}</h1>
-      <h2>{description}</h2>
+      <h2 onClick={() => {
+        navigate("/edit", {state: {id}})
+      }}>{description}</h2>
       <h3>{cost.toString().replaceAll(".", ",")}</h3>
       <h4 onClick={post}>x</h4>
     </Valores>
@@ -47,6 +51,7 @@ h2{
   font-size: 16px;
   color: #000000;
   margin-left: 10px;
+  cursor: pointer;
 }
 h3{
   font-family: "Raleway";
